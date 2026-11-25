@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { BAND_CONFIG, buildWhatsAppUrl, isWhatsAppConfigured } from '../config/bandConfig';
+import {
+  BAND_CONFIG,
+  buildWhatsAppUrl,
+  getInstagramDisplayHandle,
+  getInstagramUrl,
+  isInstagramConfigured,
+  isWhatsAppConfigured,
+} from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
+import { InstagramIcon } from './InstagramIcon';
 
 const NAV_LINKS = [
   { href: '#la-experiencia', label: 'La experiencia' },
@@ -16,6 +24,8 @@ export function Navbar() {
   const whatsappConfigured = isWhatsAppConfigured();
   const whatsappUrl = buildWhatsAppUrl();
   const ctaHref = whatsappConfigured && whatsappUrl ? whatsappUrl : '#contrataciones';
+  const instagramConfigured = isInstagramConfigured();
+  const instagramUrl = getInstagramUrl();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -62,8 +72,22 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Zone 3: Single Primary Action + Mobile Menu Toggle */}
+        {/* Zone 3: Instagram Icon + Primary Action + Mobile Menu Toggle */}
         <div className="flex items-center gap-3 shrink-0">
+          {instagramConfigured && instagramUrl && (
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('instagram_click', { origin: 'navbar' })}
+              aria-label={`Instagram de ${BAND_CONFIG.brand.name} (${getInstagramDisplayHandle()})`}
+              title={`Instagram ${getInstagramDisplayHandle()}`}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-sm text-[#E9E0D0]/80 transition-colors duration-150 hover:text-[#B68B5A]"
+            >
+              <InstagramIcon className="h-[18px] w-[18px]" aria-hidden="true" />
+            </a>
+          )}
+
           <a
             href={ctaHref}
             target={whatsappConfigured && whatsappUrl ? '_blank' : undefined}
@@ -103,6 +127,21 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
+            {instagramConfigured && instagramUrl && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  trackEvent('instagram_click', { origin: 'navbar_mobile' });
+                  setMobileOpen(false);
+                }}
+                className="inline-flex items-center gap-2.5 py-1.5 text-base text-[#E9E0D0] transition-colors hover:text-[#B68B5A]"
+              >
+                <InstagramIcon className="h-4 w-4 text-[#B68B5A]" aria-hidden="true" />
+                <span>Instagram ({getInstagramDisplayHandle()})</span>
+              </a>
+            )}
             <a
               href={ctaHref}
               target={whatsappConfigured && whatsappUrl ? '_blank' : undefined}

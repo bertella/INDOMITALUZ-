@@ -7,6 +7,7 @@ import {
   isWhatsAppConfigured,
 } from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
+import { InstagramIcon } from './InstagramIcon';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -35,17 +36,19 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent('instagram_click', { origin: 'footer' })}
-              className="transition-colors hover:text-[#E9E0D0]"
+              className="inline-flex items-center gap-2 transition-colors hover:text-[#E9E0D0]"
             >
-              Instagram ({getInstagramDisplayHandle()})
+              <InstagramIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
+              <span>Instagram ({getInstagramDisplayHandle()})</span>
             </a>
           ) : (
             <a
               href="#contrataciones"
               onClick={() => trackEvent('instagram_click', { origin: 'footer_fallback' })}
-              className="transition-colors hover:text-[#E9E0D0]"
+              className="inline-flex items-center gap-2 transition-colors hover:text-[#E9E0D0]"
             >
-              Instagram
+              <InstagramIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
+              <span>Instagram</span>
             </a>
           )}
 

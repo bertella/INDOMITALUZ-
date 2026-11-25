@@ -9,6 +9,7 @@ import {
   isWhatsAppConfigured,
 } from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
+import { InstagramIcon } from './InstagramIcon';
 
 interface BookingFormState {
   venueName: string;
@@ -198,19 +199,23 @@ export function BookingSection() {
             </div>
 
             {/* Quiet Secondary Links */}
-            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-[#E9E0D0]/10 pt-6 text-sm text-[#A39B8F]">
+            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#E9E0D0]/10 pt-6 text-sm text-[#A39B8F]">
               {instagramConfigured && instagramUrl ? (
                 <a
                   href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('instagram_click', { origin: 'contact_section' })}
-                  className="transition-colors hover:text-[#B68B5A]"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-[#B68B5A]"
                 >
-                  Instagram ({getInstagramDisplayHandle()})
+                  <InstagramIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>Instagram ({getInstagramDisplayHandle()})</span>
                 </a>
               ) : (
-                <span>Instagram: {getInstagramDisplayHandle()}</span>
+                <span className="inline-flex items-center gap-2">
+                  <InstagramIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>Instagram: {getInstagramDisplayHandle()}</span>
+                </span>
               )}
 
               {BAND_CONFIG.contact.email && (
