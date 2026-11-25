@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import {
   BAND_CONFIG,
-  buildWhatsAppUrl,
   getInstagramDisplayHandle,
   getInstagramUrl,
   isInstagramConfigured,
@@ -20,7 +19,6 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const whatsappUrl = buildWhatsAppUrl();
   const instagramConfigured = isInstagramConfigured();
   const instagramUrl = getInstagramUrl();
 
@@ -30,12 +28,6 @@ export function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  const handleBookingClick = () => {
-    trackEvent('booking_click', { origin: 'navbar' });
-    trackEvent('whatsapp_click', { origin: 'navbar' });
-    setMobileOpen(false);
-  };
 
   return (
     <header
@@ -67,8 +59,8 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Zone 3: Instagram Icon + Primary Action + Mobile Menu Toggle */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Zone 3: Instagram Icon + Mobile Menu Toggle */}
+        <div className="flex items-center gap-2 shrink-0">
           {instagramConfigured && instagramUrl && (
             <a
               href={instagramUrl}
@@ -82,16 +74,6 @@ export function Navbar() {
               <InstagramIcon className="h-[18px] w-[18px]" aria-hidden="true" />
             </a>
           )}
-
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={handleBookingClick}
-            className="hidden sm:inline-flex items-center justify-center rounded-sm border border-[#B68B5A]/75 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.12em] text-[#E9E0D0] transition-colors duration-150 hover:bg-[#B68B5A] hover:text-[#191817] whitespace-nowrap shrink-0"
-          >
-            Contratar
-          </a>
 
           <button
             type="button"
@@ -137,15 +119,6 @@ export function Navbar() {
                 <span>Instagram ({getInstagramDisplayHandle()})</span>
               </a>
             )}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleBookingClick}
-              className="mt-2 inline-flex min-h-[44px] items-center justify-center rounded-sm bg-[#B68B5A] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#191817] transition-colors hover:bg-[#c59a69]"
-            >
-              Contratar a Indómita Luz
-            </a>
           </div>
         </nav>
       )}

@@ -1,16 +1,8 @@
 import { useState } from 'react';
-import { BAND_CONFIG, buildWhatsAppUrl } from '../config/bandConfig';
-import { trackEvent } from '../utils/analytics';
+import { BAND_CONFIG } from '../config/bandConfig';
 
 export function Hero() {
   const [imageError, setImageError] = useState(false);
-
-  const whatsappUrl = buildWhatsAppUrl();
-
-  const handleBookingClick = () => {
-    trackEvent('booking_click', { origin: 'hero_primary' });
-    trackEvent('whatsapp_click', { origin: 'hero_primary' });
-  };
 
   return (
     <section
@@ -57,18 +49,6 @@ export function Hero() {
             Rock, pop y grandes clásicos argentinos de los años 70 y 80 en vivo. Cuatro músicos en
             escena para volver a sentir las canciones de siempre.
           </p>
-
-          <div className="mt-8">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleBookingClick}
-              className="inline-flex min-h-[48px] items-center justify-center rounded-sm bg-[#B68B5A] px-7 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#191817] transition-colors duration-150 hover:bg-[#c59a69] whitespace-nowrap"
-            >
-              Contratar a Indómita Luz
-            </a>
-          </div>
         </div>
       </div>
     </section>
