@@ -3,6 +3,8 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutBand } from './components/AboutBand';
 import { LiveGallery } from './components/LiveGallery';
+import { BacklineSection } from './components/BacklineSection';
+import { WorkModeSection } from './components/WorkModeSection';
 import { BookingSection } from './components/BookingSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
@@ -28,6 +30,8 @@ export default function App() {
         <Hero />
         <AboutBand />
         <LiveGallery />
+        <BacklineSection />
+        <WorkModeSection />
         <BookingSection />
       </main>
 

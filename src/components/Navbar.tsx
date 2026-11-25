@@ -12,6 +12,8 @@ import { InstagramIcon } from './InstagramIcon';
 const NAV_LINKS = [
   { href: '#la-experiencia', label: 'La experiencia' },
   { href: '#en-escena', label: 'En escena' },
+  { href: '#backline', label: 'Backline' },
+  { href: '#modalidad', label: 'Modalidad' },
   { href: '#contrataciones', label: 'Contrataciones' },
 ];
 
