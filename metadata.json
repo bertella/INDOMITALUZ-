@@ -1,0 +1,6 @@
+{
+  "name": "Indómita Luz",
+  "description": "Landing page oficial de Indómita Luz, banda de rock y pop nacional argentino de Córdoba Capital. Shows en vivo con sonido propio para bares, pubs, espacios culturales y eventos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
