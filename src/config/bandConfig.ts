@@ -17,7 +17,8 @@ export const BAND_CONFIG = {
   },
 
   contact: {
-    whatsappNumber: (import.meta.env.VITE_WHATSAPP_NUMBER as string | undefined)?.trim() || '',
+    whatsappNumber:
+      (import.meta.env.VITE_WHATSAPP_NUMBER as string | undefined)?.trim() || '5493512031996',
     email: (import.meta.env.VITE_CONTACT_EMAIL as string | undefined)?.trim() || '',
     defaultWhatsappGreeting:
       'Hola Indómita Luz, me contacto desde la web para consultar disponibilidad y presupuesto para un show en vivo.',
@@ -39,20 +40,19 @@ export const BAND_CONFIG = {
   },
 } as const;
 
+const FALLBACK_WHATSAPP_DIGITS = '5493512031996';
+
 export function sanitizeWhatsappDigits(raw: string): string {
   return raw.replace(/\D/g, '');
 }
 
 export function isWhatsAppConfigured(): boolean {
-  const digits = sanitizeWhatsappDigits(BAND_CONFIG.contact.whatsappNumber);
-  return digits.length >= 8;
+  return true;
 }
 
-export function buildWhatsAppUrl(customMessage?: string): string | null {
-  const digits = sanitizeWhatsappDigits(BAND_CONFIG.contact.whatsappNumber);
-  if (digits.length < 8) {
-    return null;
-  }
+export function buildWhatsAppUrl(customMessage?: string): string {
+  const configuredDigits = sanitizeWhatsappDigits(BAND_CONFIG.contact.whatsappNumber);
+  const digits = configuredDigits.length >= 8 ? configuredDigits : FALLBACK_WHATSAPP_DIGITS;
   const text = customMessage?.trim() || BAND_CONFIG.contact.defaultWhatsappGreeting;
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }

@@ -4,7 +4,6 @@ import {
   getInstagramDisplayHandle,
   getInstagramUrl,
   isInstagramConfigured,
-  isWhatsAppConfigured,
 } from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
 import { InstagramIcon } from './InstagramIcon';
@@ -52,25 +51,15 @@ export function Footer() {
             </a>
           )}
 
-          {isWhatsAppConfigured() && whatsappUrl ? (
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent('whatsapp_click', { origin: 'footer' })}
-              className="transition-colors hover:text-[#B68B5A]"
-            >
-              WhatsApp
-            </a>
-          ) : (
-            <a
-              href="#contrataciones"
-              onClick={() => trackEvent('whatsapp_click', { origin: 'footer_fallback' })}
-              className="transition-colors hover:text-[#B68B5A]"
-            >
-              WhatsApp
-            </a>
-          )}
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent('whatsapp_click', { origin: 'footer' })}
+            className="transition-colors hover:text-[#B68B5A]"
+          >
+            WhatsApp
+          </a>
 
           <a
             href="#contrataciones"

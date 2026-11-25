@@ -6,7 +6,6 @@ import {
   getInstagramDisplayHandle,
   getInstagramUrl,
   isInstagramConfigured,
-  isWhatsAppConfigured,
 } from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
 import { InstagramIcon } from './InstagramIcon';
@@ -93,7 +92,6 @@ export function BookingSection() {
   const [submittedMessage, setSubmittedMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const whatsappConfigured = isWhatsAppConfigured();
   const directWhatsappUrl = submittedMessage ? buildWhatsAppUrl(submittedMessage) : null;
   const quickWhatsappUrl = buildWhatsAppUrl();
   const instagramConfigured = isInstagramConfigured();
@@ -168,34 +166,16 @@ export function BookingSection() {
 
             {/* Direct WhatsApp Button */}
             <div className="mt-10">
-              {whatsappConfigured && quickWhatsappUrl ? (
-                <a
-                  href={quickWhatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackEvent('whatsapp_click', { origin: 'contact_primary' })}
-                  className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-sm bg-[#B68B5A] px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#191817] transition-colors duration-150 hover:bg-[#c59a69]"
-                >
-                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                  <span>Contactar por WhatsApp</span>
-                </a>
-              ) : (
-                <div className="space-y-2">
-                  <a
-                    href="#formulario-contacto"
-                    onClick={() => trackEvent('whatsapp_click', { origin: 'contact_to_form' })}
-                    className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-sm bg-[#B68B5A] px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#191817] transition-colors duration-150 hover:bg-[#c59a69]"
-                  >
-                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                    <span>Contactar por WhatsApp</span>
-                  </a>
-                  <p className="text-xs text-[#A39B8F]">
-                    Configurá <span className="text-[#E9E0D0]">VITE_WHATSAPP_NUMBER</span> o{' '}
-                    <span className="text-[#E9E0D0]">src/config/bandConfig.ts</span> para activar
-                    el enlace directo.
-                  </p>
-                </div>
-              )}
+              <a
+                href={quickWhatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('whatsapp_click', { origin: 'contact_primary' })}
+                className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-sm bg-[#B68B5A] px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#191817] transition-colors duration-150 hover:bg-[#c59a69]"
+              >
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                <span>Contactar por WhatsApp</span>
+              </a>
             </div>
 
             {/* Quiet Secondary Links */}
@@ -437,28 +417,21 @@ export function BookingSection() {
                 </pre>
 
                 <div className="mt-5 flex flex-wrap items-center gap-4">
-                  {directWhatsappUrl ? (
-                    <a
-                      href={directWhatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() =>
-                        trackEvent('whatsapp_click', {
-                          origin: 'booking_form_confirmed',
-                          event_type: form.eventType,
-                        })
-                      }
-                      className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-sm bg-[#B68B5A] px-5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#191817] transition-colors hover:bg-[#c59a69]"
-                    >
-                      <span>Abrir en WhatsApp</span>
-                      <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                    </a>
-                  ) : (
-                    <span className="text-xs text-[#A39B8F]">
-                      Falta configurar <span className="text-[#E9E0D0]">VITE_WHATSAPP_NUMBER</span>{' '}
-                      para abrir WhatsApp directo.
-                    </span>
-                  )}
+                  <a
+                    href={directWhatsappUrl || quickWhatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      trackEvent('whatsapp_click', {
+                        origin: 'booking_form_confirmed',
+                        event_type: form.eventType,
+                      })
+                    }
+                    className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-sm bg-[#B68B5A] px-5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#191817] transition-colors hover:bg-[#c59a69]"
+                  >
+                    <span>Abrir en WhatsApp</span>
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                  </a>
 
                   <button
                     type="button"

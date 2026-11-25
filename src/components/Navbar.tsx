@@ -6,7 +6,6 @@ import {
   getInstagramDisplayHandle,
   getInstagramUrl,
   isInstagramConfigured,
-  isWhatsAppConfigured,
 } from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
 import { InstagramIcon } from './InstagramIcon';
@@ -21,9 +20,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const whatsappConfigured = isWhatsAppConfigured();
   const whatsappUrl = buildWhatsAppUrl();
-  const ctaHref = whatsappConfigured && whatsappUrl ? whatsappUrl : '#contrataciones';
   const instagramConfigured = isInstagramConfigured();
   const instagramUrl = getInstagramUrl();
 
@@ -36,9 +33,7 @@ export function Navbar() {
 
   const handleBookingClick = () => {
     trackEvent('booking_click', { origin: 'navbar' });
-    if (whatsappConfigured && whatsappUrl) {
-      trackEvent('whatsapp_click', { origin: 'navbar' });
-    }
+    trackEvent('whatsapp_click', { origin: 'navbar' });
     setMobileOpen(false);
   };
 
@@ -89,9 +84,9 @@ export function Navbar() {
           )}
 
           <a
-            href={ctaHref}
-            target={whatsappConfigured && whatsappUrl ? '_blank' : undefined}
-            rel={whatsappConfigured && whatsappUrl ? 'noopener noreferrer' : undefined}
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={handleBookingClick}
             className="hidden sm:inline-flex items-center justify-center rounded-sm border border-[#B68B5A]/75 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.12em] text-[#E9E0D0] transition-colors duration-150 hover:bg-[#B68B5A] hover:text-[#191817] whitespace-nowrap shrink-0"
           >
@@ -143,9 +138,9 @@ export function Navbar() {
               </a>
             )}
             <a
-              href={ctaHref}
-              target={whatsappConfigured && whatsappUrl ? '_blank' : undefined}
-              rel={whatsappConfigured && whatsappUrl ? 'noopener noreferrer' : undefined}
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={handleBookingClick}
               className="mt-2 inline-flex min-h-[44px] items-center justify-center rounded-sm bg-[#B68B5A] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#191817] transition-colors hover:bg-[#c59a69]"
             >

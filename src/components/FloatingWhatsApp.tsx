@@ -1,22 +1,18 @@
 import { MessageCircle } from 'lucide-react';
-import { buildWhatsAppUrl, isWhatsAppConfigured } from '../config/bandConfig';
+import { buildWhatsAppUrl } from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
 
 export function FloatingWhatsApp() {
-  const configured = isWhatsAppConfigured();
   const whatsappUrl = buildWhatsAppUrl();
-
-  const href = configured && whatsappUrl ? whatsappUrl : '#contrataciones';
-  const isExternal = Boolean(configured && whatsappUrl);
 
   return (
     <a
-      href={href}
-      target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'noopener noreferrer' : undefined}
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       onClick={() =>
         trackEvent('whatsapp_click', {
-          origin: isExternal ? 'floating_button' : 'floating_button_to_contact',
+          origin: 'floating_button',
         })
       }
       aria-label="Consultar por WhatsApp a Indómita Luz"

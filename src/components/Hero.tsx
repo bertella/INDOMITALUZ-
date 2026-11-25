@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import { BAND_CONFIG, buildWhatsAppUrl, isWhatsAppConfigured } from '../config/bandConfig';
+import { BAND_CONFIG, buildWhatsAppUrl } from '../config/bandConfig';
 import { trackEvent } from '../utils/analytics';
 
 export function Hero() {
   const [imageError, setImageError] = useState(false);
 
-  const whatsappConfigured = isWhatsAppConfigured();
   const whatsappUrl = buildWhatsAppUrl();
-  const ctaHref = whatsappConfigured && whatsappUrl ? whatsappUrl : '#contrataciones';
 
   const handleBookingClick = () => {
     trackEvent('booking_click', { origin: 'hero_primary' });
-    if (whatsappConfigured && whatsappUrl) {
-      trackEvent('whatsapp_click', { origin: 'hero_primary' });
-    }
+    trackEvent('whatsapp_click', { origin: 'hero_primary' });
   };
 
   return (
@@ -64,9 +60,9 @@ export function Hero() {
 
           <div className="mt-8">
             <a
-              href={ctaHref}
-              target={whatsappConfigured && whatsappUrl ? '_blank' : undefined}
-              rel={whatsappConfigured && whatsappUrl ? 'noopener noreferrer' : undefined}
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={handleBookingClick}
               className="inline-flex min-h-[48px] items-center justify-center rounded-sm bg-[#B68B5A] px-7 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#191817] transition-colors duration-150 hover:bg-[#c59a69] whitespace-nowrap"
             >
